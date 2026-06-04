@@ -1,0 +1,371 @@
+:root {
+  --bg: #0f1419;
+  --surface: #1a2332;
+  --surface-hover: #243044;
+  --border: #2d3a4f;
+  --text: #e8edf4;
+  --muted: #8b9cb3;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --accent: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --radius: 10px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+* {
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.55rem 1.1rem;
+  font-weight: 500;
+  transition: background 0.15s, transform 0.1s;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  background: var(--surface-hover);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+input, select, textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.85rem;
+  width: 100%;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-draft { background: #374151; color: #d1d5db; }
+.badge-published { background: #065f46; color: #6ee7b7; }
+.badge-admin { background: #1e3a5f; color: #93c5fd; }
+.badge-editor { background: #422006; color: #fcd34d; }
+.badge-writer { background: #312e81; color: #c4b5fd; }
+
+.error-msg {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.15);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+.success-msg {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+/* الألوان العصرية الفاخرة لمشروع الـ AI-CMS */
+:root {
+  --bg-main: #F3F4F6;       /* خلفية رمادية فاتحة مريحة جداً للعين */
+  --bg-card: #FFFFFF;       /* كروت وصناديق محادثة بيضاء ناصعة لتبرز في الشاشة */
+  --primary-ai: #7C3AED;    /* البنفسجي الملكي الخاص بهوية الذكاء الاصطناعي */
+  --primary-hover: #6D28D9; /* درجة أغمق عند تمرير الماوس فوق الأزرار */
+  --text-main: #1F2937;     /* رمادي داكن عصري للنصوص بدلاً من الأسود الحاد */
+  --text-muted: #4B5563;    /* لون رمادي متوسط للنصوص الثانوية والتواريخ */
+}
+
+/* تطبيق الألوان بشكل تلقائي وسلس على كامل الموقع */
+body {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+/* تنعيم الحواف وإضافة ظلال خفيفة عصرية لكل الكروت وصندوق الشات */
+.card, .chat-container, .sidebar, .modal {
+  background-color: var(--bg-card) !important;
+  border-radius: 16px !important; /* حواف دائرية ناعمة وعصرية */
+  border: none !important;        /* إلغاء الخطوط الحدودية القاسية */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important; /* ظلال ناعمة جداً */
+  transition: all 0.3s ease-in-out;
+}
+
+/* جعل الأزرار بنفسجية جذابة وتتحرك بسلاسة */
+button, .btn-primary {
+  background-color: var(--primary-ai) !important;
+  color: white !important;
+  border-radius: 12px !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  transition: all 0.3s ease-in-out !important;
+  cursor: pointer;
+}
+
+/* حركة انسيابية مذهلة للأزرار والكروت عند مرور الماوس فوقها */
+button:hover, .btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  transform: translateY(-2px); /* ترتفع للأعلى قليلاً بحركة سلسة */
+}
+
+.card:hover {
+  transform: translateY(-4px); /* الكروت ترتفع بسلاسة عند مرور الماوس */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05) !important;
+}
+/* --- التخلص من الخلفيات والنصوص السوداء القاسية تماماً --- */
+
+/* 1. تحويل خلفية القائمة الجانبية (Sidebar) وأي صندوق أسود إلى الرمادي الداكن المتناسق */
+.sidebar, 
+aside, 
+nav,
+[class*="sidebar"], 
+[class*="bg-black"], 
+[class*="bg-slate-900"], 
+[class*="bg-gray-900"] {
+    background-color: #1F2937 !important; /* رمادي داكن فاخر بدلاً من الأسود الحالك */
+}
+
+/* 2. ضبط ألوان النصوص داخل القائمة الجانبية لتكون مريحة ومتناسقة */
+.sidebar a, 
+.sidebar span, 
+.sidebar li, 
+.sidebar button,
+aside a,
+aside span {
+    color: #E5E7EB !important; /* نص رمادي خفيف جداً ناعم على العين */
+}
+
+/* 3. تأثير مذهل عند تمرير الماوس فوق عناصر القائمة الجانبية */
+.sidebar a:hover, 
+.sidebar li:hover,
+aside a:hover {
+    background-color: rgba(124, 58, 237, 0.15) !important; /* خلفية بنفسجية شفافة خفيفة */
+    color: #A78BFA !important; /* يتحول النص إلى البنفسجي الفاتح */
+}
+
+/* 4. العنصر النشط حالياً في القائمة (Active Item) يأخذ خلفية بنفسجية كاملة */
+.sidebar .active, 
+aside .active,
+[class*="active"] {
+    background-color: #7C3AED !important; /* البنفسجي الملكي الخاص بك */
+    color: #FFFFFF !important;
+}
+
+/* 5. ضمان تحول أي نصوص سوداء أخرى في المحتوى لدرجة الرمادي المتناسق */
+body, p, h1, h2, h3, h4, h5, h6, td, th, label {
+    color: #374151 !important; /* رمادي غامق ناعم واحترافي */
+}
+/* --- تحويل القائمة الجانبية تماماً إلى الرمادي الفاتح العصري --- */
+
+/* 1. تغيير خلفية القائمة الجانبية والـ Sidebar إلى رمادي فاتح مريح */
+.sidebar, 
+aside, 
+nav,
+[class*="sidebar"],
+[class*="bg-slate-900"],
+[class*="bg-gray-900"] {
+    background-color: #EFAFAFA !important; /* لون رمادي ناعم جداً وفاتح يتناسق مع الخلفية */
+    background: #F3F4F6 !important;       /* تأكيد إضافي للخلفية الرمادية الفاتحة */
+    border-left: 1px solid #E5E7EB !important; /* خط فاصل رمادي خفيف جداً جهة اليسار */
+}
+
+/* 2. تحويل ألوان النصوص داخل القائمة الجانبية إلى الرمادي الداكن لكي تظهر بوضوح */
+.sidebar a, 
+.sidebar span, 
+.sidebar li, 
+.sidebar button,
+aside a,
+aside span,
+aside li {
+    color: #4B5563 !important; /* رمادي داكن هادئ وعصري بدلاً من الأبيض */
+    font-weight: 500 !important;
+}
+
+/* 3. تأثير المرور (Hover) عند وضع الماوس على خيارات القائمة */
+.sidebar a:hover, 
+.sidebar li:hover,
+aside a:hover,
+aside li:hover {
+    background-color: rgba(124, 58, 237, 0.08) !important; /* خلفية بنفسجية خفيفة جداً وشفافة */
+    color: #7C3AED !important; /* يتحول النص إلى البنفسجي الذكي */
+}
+
+/* 4. خيار القائمة النشط حالياً (Active Item) مثل "لوحة التحكم" */
+.sidebar .active, 
+aside .active,
+[class*="active"] {
+    background-color: #7C3AED !important; /* خلفية بنفسجية ملكية كاملة للزر النشط */
+    color: #FFFFFF !important;            /* النص داخل الزر النشط يصبح أبيض لبروزه */
+}
+
+/* 5. تعديل لون اللوجو أو اسم التطبيق أعلى القائمة ليصبح متناسقاً */
+.sidebar h1, .sidebar h2, aside h1, aside h2 {
+    color: #1F2937 !important; /* رمادي غامق فخم لاسم النظام */
+}
+/* --- تفتيح الحقول والصناديق الداكنة في كل الصفحات --- */
+
+/* 1. تحويل خلفيات كل حقول الإدخال، النصوص، وصناديق التوليد الذكي إلى الرمادي الفاتح النظيف */
+input, 
+textarea, 
+select, 
+.textarea, 
+[class*="bg-black"], 
+[class*="bg-gray-900"], 
+[class*="bg-slate-800"],
+[class*="bg-slate-900"] {
+    background-color: #F9FAFB !important; /* رمادي فاتح جداً وصافي للنصوص */
+    background: #F9FAFB !important;
+    color: #1F2937 !important;            /* نصوص رمادية داكنة فخمة وسهلة القراءة */
+    border: 1px solid #E5E7EB !important; /* حدود رمادية ناعمة تلغي القسوة البصرية */
+}
+
+/* 2. تحسين مظهر النصوص والكلمات التوضيحية داخل الصناديق (Placeholder) */
+input::placeholder, 
+textarea::placeholder {
+    color: #9CA3AF !important; /* لون رمادي باهت هادئ للنصوص التوضيحية */
+}
+
+/* 3. إعطاء إضاءة بنفسجية ناعمة (Glow) عند النقر داخل أي حقل للكتابة */
+input:focus, 
+textarea:focus, 
+select:focus {
+    outline: none !important;
+    border-color: #7C3AED !important; /* يتحول الإطار للبنفسجي الملكي */
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1) !important; /* هالة بنفسجية شفافة حول الحقل */
+    background-color: #FFFFFF !important; /* يتحول للأبيض الناصع أثناء الكتابة لمزيد من الوضوح */
+}
+
+/* 4. إجبار أي نصوص داخلية في حقول التوليد على أخذ اللون الداكن المريح */
+input, textarea {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-size: 15px !important;
+}
+/* --- تعديلات خاصة بالنصوص البيضاء وصندوق المساعد الذكي --- */
+
+/* 1. جعل نصوص الكتابة داخل الحقول باللون الأبيض عند الحاجة لتظهر بوضوح فوق الخلفيات الملونة */
+input, textarea, [contenteditable="true"] {
+    color: #1F2937 !important; /* النص الأساسي للكتابة في الحقول الفاتحة */
+}
+
+/* 2. تحويل نصوص أزرار الإدارة (مدير، تسجيل الخروج) وأي نصوص برابط نشط إلى الأبيض الناصع */
+.sidebar .btn, 
+.sidebar button, 
+[class*="logout"], 
+[class*="admin"],
+.sidebar a span {
+    color: #FFFFFF !important; /* لضمان ظهور الكلمات الهامة باللون الأبيض الناصع */
+}
+
+/* 3. تعديل صندوق المساعد الذكي (فقاعة الشات الخاصة بالـ AI) إلى الرمادي المتناسق */
+.chat-message.assistant,
+[class*="assistant"], 
+.bg-blue-600, /* إذا كانت الخلفية الزرقاء القديمة تعتمد على كلاسات ألوان */
+[style*="background-color"] {
+    /* تحويل الصندوق الداكن في الشات إلى رمادي فخم ومتناسق */
+    background-color: #374151 !important; 
+    background: #374151 !important;
+    border-radius: 16px !important;
+    border: none !important;
+}
+
+/* 4. جعل كافة العبارات والنصوص داخل صندوق المساعد الذكي باللون الأبيض الناصع */
+.chat-message.assistant *, 
+[class*="assistant"] *,
+.chat-message p,
+.chat-message span {
+    color: #FFFFFF !important; /* العبارات داخل الصندوق تصبح بيضاء تماماً */
+}
+
+/* 5. الحفاظ على سلاسة التنقل والأنيميشن بين الصفحات */
+.page-container, main, section {
+    animation: fadeIn 0.4s ease-in-out;
+    transition: all 0.3s ease-in-out !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
