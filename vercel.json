@@ -1,12 +1,11 @@
 {
-    "rewrites": [
-      {
-        "source": "/api/(.*)",
-        "destination": "/backend/$1"
-      },
-      {
-        "source": "/(.*)",
-        "destination": "/frontend/$1"
-      }
-    ]
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/backend/app.py" },
+    { "source": "/(.*)", "destination": "/frontend/$1" }
+  ],
+  "tool": {
+    "vercel": {
+      "entrypoint": "backend/app.py"
+    }
   }
+}
