@@ -12,7 +12,7 @@ from routes import register_blueprints
 load_dotenv(Path(__file__).parent / ".env")
 
 def create_app():
-    app = Flask('name')
+    app = Flask("name")
     app.config.from_object(Config)
 
     # التعديل هنا: نتحقق أننا لسنا على Vercel قبل إنشاء المجلدات
