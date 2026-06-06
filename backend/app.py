@@ -9,7 +9,7 @@ from models import Category, User, db
 from routes import register_blueprints
 
 # تحميل متغيرات البيئة
-load_dotenv(Path(_ _file_ _).parent / ".env")
+load_dotenv(Path(__file__).parent / ".env")
 
 def create_app():
     app = Flask(name)
