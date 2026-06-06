@@ -16,6 +16,8 @@ load_dotenv(Path(__file__).parent / ".env")
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    if not os.environ.get("VERCEL"):
     Path(app.config["UPLOAD_FOLDER"]).mkdir(parents=True, exist_ok=True)
     Path(app.config["TTS_FOLDER"]).mkdir(parents=True, exist_ok=True)
 
