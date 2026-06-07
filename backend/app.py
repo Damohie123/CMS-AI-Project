@@ -231,6 +231,4 @@ app = create_app()
 if __name__ == "__main__":
 
     app.run(debug=True, port=5000)
-    @ai_bp.route('/check')
-def check():
-    return {"status": "Blueprint is working correctly!"}
+    
