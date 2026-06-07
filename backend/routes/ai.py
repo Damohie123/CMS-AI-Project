@@ -153,3 +153,7 @@ def duplicate_check():
         q = q.filter(Article.id != article_id)
     snippets = [a.content for a in q.limit(50).all()]
     return jsonify(ai_engine.detect_duplicate(content, snippets))
+
+@ai_bp.route('/check')
+def check():
+    return {"status": "Blueprint is working correctly!"}
