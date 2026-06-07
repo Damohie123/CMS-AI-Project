@@ -5,6 +5,7 @@ import ai_engine
 from models import Article
 from services import tts_service
 
+
 from flask import Blueprint
 
 ai_bp = Blueprint('ai', __name__)
