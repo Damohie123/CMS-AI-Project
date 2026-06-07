@@ -5,10 +5,10 @@ import ai_engine
 from models import Article
 from services import tts_service
 
-ai_bp = Blueprint("ai", __name__)
+main_bp = Blueprint("main", __name__)
 
 
-@ai_bp.route("/generate", methods=["POST"])
+@main_bp.route("/generate", methods=["POST"])
 @jwt_required()
 def generate():
     data = request.get_json() or {}
@@ -24,7 +24,7 @@ def generate():
     )
 
 
-@ai_bp.route("/summarize", methods=["POST"])
+@main_bp.route("/summarize", methods=["POST"])
 @jwt_required()
 def summarize():
     data = request.get_json() or {}
@@ -34,7 +34,7 @@ def summarize():
     return jsonify(ai_engine.summarize_text(text))
 
 
-@ai_bp.route("/titles", methods=["POST"])
+@main_bp.route("/titles", methods=["POST"])
 @jwt_required()
 def titles():
     data = request.get_json() or {}
@@ -44,7 +44,7 @@ def titles():
     return jsonify(ai_engine.suggest_titles(text, count=data.get("count", 5)))
 
 
-@ai_bp.route("/seo", methods=["POST"])
+@main_bp.route("/seo", methods=["POST"])
 @jwt_required()
 def seo():
     data = request.get_json() or {}
@@ -55,7 +55,7 @@ def seo():
     return jsonify(ai_engine.seo_suggestions(title, content))
 
 
-@ai_bp.route("/keywords", methods=["POST"])
+@main_bp.route("/keywords", methods=["POST"])
 @jwt_required()
 def keywords():
     data = request.get_json() or {}
@@ -65,7 +65,7 @@ def keywords():
     return jsonify(ai_engine.extract_keywords(text, limit=data.get("limit", 15)))
 
 
-@ai_bp.route("/grammar", methods=["POST"])
+@main_bp.route("/grammar", methods=["POST"])
 @jwt_required()
 def grammar():
     data = request.get_json() or {}
@@ -75,7 +75,7 @@ def grammar():
     return jsonify(ai_engine.grammar_check(text))
 
 
-@ai_bp.route("/arabic-package", methods=["POST"])
+@main_bp.route("/arabic-package", methods=["POST"])
 @jwt_required()
 def arabic_package():
     data = request.get_json() or {}
@@ -85,7 +85,7 @@ def arabic_package():
     return jsonify(ai_engine.arabic_content_package(topic))
 
 
-@ai_bp.route("/tools", methods=["GET"])
+@main_bp.route("/tools", methods=["GET"])
 @jwt_required()
 def list_tools():
     """AI capabilities exposed by the backend."""
@@ -105,7 +105,7 @@ def list_tools():
     })
 
 
-@ai_bp.route("/tts", methods=["POST"])
+@main_bp.route("/tts", methods=["POST"])
 @jwt_required()
 def text_to_speech():
     data = request.get_json() or {}
@@ -126,7 +126,7 @@ def text_to_speech():
         return jsonify({"error": str(e)}), 503
 
 
-@ai_bp.route("/tts/audio/<filename>", methods=["GET"])
+@main_bp.route("/tts/audio/<filename>", methods=["GET"])
 @jwt_required(optional=True)
 def serve_tts_audio(filename):
     safe = "".join(c for c in filename if c.isalnum() or c in ".-_")
@@ -135,7 +135,7 @@ def serve_tts_audio(filename):
     return send_from_directory(current_app.config["TTS_FOLDER"], filename)
 
 
-@ai_bp.route("/duplicate-check", methods=["POST"])
+@main_bp.route("/duplicate-check", methods=["POST"])
 @jwt_required()
 def duplicate_check():
     data = request.get_json() or {}
