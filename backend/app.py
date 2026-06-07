@@ -7,7 +7,10 @@ from flask_jwt_extended import JWTManager
 from config import Config
 from models import Category, User, db
 from routes import register_blueprints
-
+from flask import Flask, Blueprint  # أضفنا Blueprint هنا
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+# ... باقي الاستيرادات
 # تحميل متغيرات البيئة
 load_dotenv(Path(__file__).parent / ".env")
 
