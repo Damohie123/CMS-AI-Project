@@ -5,10 +5,13 @@ import ai_engine
 from models import Article
 from services import tts_service
 
-ai_bp = Blueprint("ai", __name__)
+from flask import Blueprint
 
+ai_bp = Blueprint('ai', __name__)
 
-@ai_bp.route("/generate", methods=["POST"])
+@ai_bp.route('/', methods=['GET']) # هذا المسار سيصبح /api/ai/
+def index():
+    return {"message": "AI Engine is running"}
 @jwt_required()
 def generate():
     data = request.get_json() or {}
