@@ -6,7 +6,10 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import Config
 from models import Category, User, db
-from routes import ai_bp app.register_blueprints(ai_bp)
+# داخل backend/app.py
+from routes import register_blueprints
+# داخل backend/routes/__init__.py
+from .ai import ai # استخدم النقطة للإشارة إلى الملف داخل نفس المجلد
 from flask import Flask, Blueprint  # أضفنا Blueprint هنا
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
