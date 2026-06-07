@@ -10,7 +10,17 @@ from models import Category, User, db
 from routes import register_blueprints
 # داخل backend/routes/__init__.py
 from routes.ai import  ai_bp #
+app = Flask(__name__)
 app.register_blueprint(ai_bp, url_prefix='/ai') 
+
+# 4. أخيراً: تعريف المسارات الأخرى (مثل الصفحة الرئيسية)
+@app.route('/')
+def home():
+    return "مرحباً بك في موقع CMS-AI"
+
+if __name__ == "__main__":
+    app.run()
+
 # إضافة url_prefix تجعل المسارات تبدأ بـ /ai مثل /ai/generate
 from flask import Flask, Blueprint  # أضفنا Blueprint هنا
 from flask_cors import CORS
