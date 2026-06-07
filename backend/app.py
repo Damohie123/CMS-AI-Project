@@ -11,9 +11,16 @@ from routes import register_blueprints
 # تحميل متغيرات البيئة
 load_dotenv(Path(__file__).parent / ".env")
 
+# في بداية ملف app.py، داخل create_app:
 def create_app():
-    app = Flask("name")
+    app = Flask(__name__) # صححت "name" إلى name
+    
+    # تحميل إعدادات قاعدة البيانات من متغير البيئة
+    # تأكد أن Config الخاص بك يستخدم هذا أيضاً
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config.from_object(Config)
+    
+    # ... بقية الكود
 
     # التعديل هنا: نتحقق أننا لسنا على Vercel قبل إنشاء المجلدات
     if not os.environ.get("VERCEL"):
