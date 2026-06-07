@@ -10,11 +10,27 @@ from routes import register_blueprints
 
 # تحميل متغيرات البيئة
 load_dotenv(Path(__file__).parent / ".env")
-@app.route('/')
-def home():
-    return {"message": "Welcome to CMS-AI API", "status": "running"}
+
 # في بداية ملف app.py، داخل create_app:
 def create_app():
+    from flask import Blueprint
+
+# تعريف الـ Blueprint
+main_bp = Blueprint('main', name)
+
+@main_bp.route('/')
+def index():
+    return {"message": "Server is running successfully!"}
+def create_app():
+    app = Flask(name)
+    # ... بقية الإعدادات ...
+    
+    # تأكد من وجود هذا السطر
+    from routes import main_bp 
+    app.register_blueprint(main_bp)
+    
+    return app
+    
     app = Flask(__name__) # صححت "name" إلى name
     
     # تحميل إعدادات قاعدة البيانات من متغير البيئة
