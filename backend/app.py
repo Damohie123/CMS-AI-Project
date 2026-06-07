@@ -15,6 +15,9 @@ from config import Config
 from models import Category, User, db
 
 # داخل backend/app.py
+@app.route('/test-route')
+def test_route():
+    return "نظام التوجيه يعمل!"
 
 from backend.routes import register_blueprints
 
