@@ -19,9 +19,9 @@ def create_app():
     from flask import Blueprint
 
 # تعريف الـ Blueprint
-main_bp = Blueprint('main',__name__)
+ai_bp = Blueprint('ai_bp',__name__)
 
-@main_bp.route('/')
+@ai_bp.route('/')
 def index():
     return {"message": "Server is running successfully!"}
 def create_app():
@@ -29,8 +29,8 @@ def create_app():
     # ... بقية الإعدادات ...
     
     # تأكد من وجود هذا السطر
-    from routes import main_bp 
-    app.register_blueprint(main_bp)
+    from routes import ai_bp 
+    app.register_blueprint(ai_bp)
     
     return app
     
