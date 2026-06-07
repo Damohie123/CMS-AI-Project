@@ -16,7 +16,7 @@ from models import Category, User, db
 
 # داخل backend/app.py
 
-from routes import register_blueprints
+from backend.routes import register_blueprints
 
 # داخل backend/routes/__init__.py
 
