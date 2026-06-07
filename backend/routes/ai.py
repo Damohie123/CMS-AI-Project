@@ -5,7 +5,7 @@ import ai_engine
 from models import Article
 from services import tts_service
 
-ai_bp = Blueprint("ai", __name__)
+ai = Blueprint("ai", __name__)
 
 
 @ai_bp.route("/generate", methods=["POST"])
