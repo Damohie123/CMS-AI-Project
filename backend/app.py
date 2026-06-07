@@ -19,13 +19,13 @@ def create_app():
     from flask import Blueprint
 
 # تعريف الـ Blueprint
-main_bp = Blueprint('main',__name__)
+main_bp = Blueprint('main',name)
 
 @main_bp.route('/')
 def index():
     return {"message": "Server is running successfully!"}
 def create_app():
-    app = Flask(name)
+    app = Flask(__name__)
     # ... بقية الإعدادات ...
     
     # تأكد من وجود هذا السطر
