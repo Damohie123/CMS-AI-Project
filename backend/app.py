@@ -5,45 +5,23 @@ from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import Config
-from models import Category, User, db
+from models import db, Category, User
 from routes import register_blueprints
 
-# تحميل متغيرات البيئة
+# 1. تهيئة البيئة
 load_dotenv(Path(__file__).parent / ".env")
 
-def _seed_defaults():
-    """دالة لإنشاء بيانات افتراضية إذا كانت قاعدة البيانات فارغة"""
-    try:
-        if not Category.query.first():
-            defaults = [
-                ("Technology", "تقنية", "tech"),
-                ("Business", "أعمال", "business"),
-                ("Education", "تعليم", "education"),
-            ]
-            for name, name_ar, slug in defaults:
-                db.session.add(Category(name=name, name_ar=name_ar, slug=slug))
-            db.session.commit()
-
-        if not User.query.filter_by(username="admin").first():
-            admin = User(username="admin", email="admin@cms.local", role="admin")
-            admin.set_password("admin123")
-            db.session.add(admin)
-            db.session.commit()
-    except Exception as e:
-        print(f"Error seeding database: {e}")
-
+# 2. إنشاء التطبيق (هنا يتم تعريف app)
 def create_app():
     app = Flask(__name__)
-    
-    # تحميل الإعدادات
     app.config.from_object(Config)
     
-    # الإضافات
+    # 3. تسجيل الإضافات
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     db.init_app(app)
     JWTManager(app)
     
-    # تسجيل المسارات (Blueprints)
+    # 4. تسجيل المسارات (وهنا نستخدم app بعد أن تم تعريفها)
     register_blueprints(app)
 
     @app.route("/")
@@ -54,15 +32,14 @@ def create_app():
     def health():
         return {"status": "ok", "service": "CMS-AI"}
 
-    with app.app_context():
-        # ملاحظة: تأكد أن قاعدة البيانات في Vercel تدعم الكتابة (مثل PostgreSQL)
-        db.create_all()
-        _seed_defaults()
-
     return app
 
-# تعريف app المطلوب بواسطة Vercel
+# 5. تعريف app للمستوى العلوي (هذا ما يحتاجه Vercel)
 app = create_app()
+
+# 6. تشغيل قاعدة البيانات (داخل سياق التطبيق)
+with app.app_context():
+    db.create_all()
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
