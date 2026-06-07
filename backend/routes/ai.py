@@ -22,7 +22,7 @@ def generate():
             length=data.get("length", "medium"),
         )
     )
-@ai.route('/')
+@ai_bp.route('/')
 def home():
     return "مرحباً بك في موقع CMS-AI"
 
