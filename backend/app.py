@@ -9,6 +9,7 @@ from models import Category, User, db
 # داخل backend/app.py
 from routes import register_blueprints
 # داخل backend/routes/__init__.py
+from flask import Flask
 from routes.ai import  ai_bp #
 app = Flask(__name__)
 app.register_blueprint(ai_bp, url_prefix='/ai') 
