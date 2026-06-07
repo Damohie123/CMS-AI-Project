@@ -9,7 +9,9 @@ from models import Category, User, db
 # داخل backend/app.py
 from routes import register_blueprints
 # داخل backend/routes/__init__.py
-from routes.ai import ai_bp # استخدم النقطة للإشارة إلى الملف داخل نفس المجلد
+from routes.ai import  ai_bp #
+app.register_blueprint(ai_bp, url_prefix='/ai') 
+# إضافة url_prefix تجعل المسارات تبدأ بـ /ai مثل /ai/generate
 from flask import Flask, Blueprint  # أضفنا Blueprint هنا
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
