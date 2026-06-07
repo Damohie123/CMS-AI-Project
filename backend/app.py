@@ -6,82 +6,13 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import Config
 from models import Category, User, db
-# داخل backend/app.py
 from routes import register_blueprints
-# داخل backend/routes/__init__.py
-from flask import Flask
-from routes.ai import  ai_bp #
-app = Flask(__name__)
-app.register_blueprint(ai_bp, url_prefix='/ai') 
 
-# 4. أخيراً: تعريف المسارات الأخرى (مثل الصفحة الرئيسية)
-@app.route('/')
-def home():
-    return "مرحباً بك في موقع CMS-AI"
-
-if __name__ == "__main__":
-    app.run()
-
-# إضافة url_prefix تجعل المسارات تبدأ بـ /ai مثل /ai/generate
-from flask import Flask, Blueprint  # أضفنا Blueprint هنا
-from flask_cors import CORS
-from flask_jwt_extended import JWTManager
-# ... باقي الاستيرادات
 # تحميل متغيرات البيئة
 load_dotenv(Path(__file__).parent / ".env")
 
-# في بداية ملف app.py، داخل create_app:
-def create_app():
-    from flask import Blueprint
-
-# تعريف الـ Blueprint
-ai_bp = Blueprint('ai_bp',__name__)
-
-@ai_bp.route('/')
-def index():
-    return {"message": "Server is running successfully!"}
-def create_app():
-    app = Flask(__name__)
-    # ... بقية الإعدادات ...
-    
-    # تأكد من وجود هذا السطر
-    from routes import ai_bp 
-    app.register_blueprint(ai_bp)
-    
-    return app
-    
-    app = Flask(__name__) # صححت "name" إلى name
-    
-    # تحميل إعدادات قاعدة البيانات من متغير البيئة
-    # تأكد أن Config الخاص بك يستخدم هذا أيضاً
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-    app.config.from_object(Config)
-    
-    # ... بقية الكود
-
-    # التعديل هنا: نتحقق أننا لسنا على Vercel قبل إنشاء المجلدات
-    if not os.environ.get("VERCEL"):
-        Path(app.config["UPLOAD_FOLDER"]).mkdir(parents=True, exist_ok=True)
-        Path(app.config["TTS_FOLDER"]).mkdir(parents=True, exist_ok=True)
-
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
-    db.init_app(app)
-    JWTManager(app)
-    register_blueprints(app)
-
-    @app.route("/api/health")
-    def health():
-        return {"status": "ok", "service": "CMS-AI"}
-
-    with app.app_context():
-        # ملاحظة: إذا كانت قاعدة بياناتك SQLite، فقد تواجه خطأ هنا أيضاً في Vercel
-        db.create_all()
-        _seed_defaults()
-
-    return app
-
 def _seed_defaults():
-    # هذا الجزء يعمل فقط إذا كانت قاعدة البيانات تسمح بالكتابة
+    """دالة لإنشاء بيانات افتراضية إذا كانت قاعدة البيانات فارغة"""
     try:
         if not Category.query.first():
             defaults = [
@@ -101,9 +32,37 @@ def _seed_defaults():
     except Exception as e:
         print(f"Error seeding database: {e}")
 
-# تعريف app للمستوى العلوي كما يحتاج Vercel
+def create_app():
+    app = Flask(__name__)
+    
+    # تحميل الإعدادات
+    app.config.from_object(Config)
+    
+    # الإضافات
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    db.init_app(app)
+    JWTManager(app)
+    
+    # تسجيل المسارات (Blueprints)
+    register_blueprints(app)
+
+    @app.route("/")
+    def home():
+        return "مرحباً بك في موقع CMS-AI"
+
+    @app.route("/api/health")
+    def health():
+        return {"status": "ok", "service": "CMS-AI"}
+
+    with app.app_context():
+        # ملاحظة: تأكد أن قاعدة البيانات في Vercel تدعم الكتابة (مثل PostgreSQL)
+        db.create_all()
+        _seed_defaults()
+
+    return app
+
+# تعريف app المطلوب بواسطة Vercel
 app = create_app()
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
-    
