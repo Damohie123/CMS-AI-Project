@@ -1,4 +1,16 @@
+
+# داخل ملف backend/app.py
+import sys
 import os
+
+# إضافة المجلد الحالي للمسار لضمان رؤية المجلدات الفرعية
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from flask import Flask
+from routes import register_blueprints # هذا السطر يجب أن يعمل الآن
+
+app = Flask(__name__)
+register_blueprints(app)
 
 from pathlib import Path
 
