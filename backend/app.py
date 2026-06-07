@@ -8,7 +8,10 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask
 from routes import register_blueprints # هذا السطر يجب أن يعمل الآن
-
+# بدلاً من من from config import Config
+from .config import Config 
+from .routes import register_blueprints
+from .models import db
 app = Flask(__name__)
 register_blueprints(app)
 
