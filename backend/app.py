@@ -1,18 +1,11 @@
-import os
 from flask import Flask
 from routes import register_blueprints
-from models import db
-from config import Config
 
 def create_app():
-    # 1. إنشاء التطبيق هنا فقط
+    # تعريف التطبيق داخل الدالة
     app = Flask(__name__)
-    app.config.from_object(Config)
     
-    # 2. تهيئة الإضافات
-    db.init_app(app)
-    
-    # 3. تسجيل المسارات
+    # تسجيل المسارات داخل الدالة بعد تعريف app
     register_blueprints(app)
     
     @app.route("/")
@@ -21,7 +14,7 @@ def create_app():
         
     return app
 
-# 4. هذا المتغير هو ما تبحث عنه Vercel
+# تعريف app للمستوى العالمي ليراه Vercel
 app = create_app()
 
 if __name__ == "__main__":
