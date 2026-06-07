@@ -1,14 +1,13 @@
 {
-  "builds": [
+  "rewrites": [
     {
-      "src": "backend/app.py",
-      "use": "@vercel/python"
+      "source": "/(.*)",
+      "destination": "/backend/app.py"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "backend/app.py"
+  "functions": {
+    "backend/app.py": {
+      "runtime": "vercel-python@0.2.0"
     }
-  ]
+  }
 }
