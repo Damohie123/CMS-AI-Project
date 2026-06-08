@@ -1,51 +1,31 @@
 import sys
 import os
-from pathlib import Path
 from flask import Flask
-from flask_cors import CORS
-from flask_jwt_extended import JWTManager
-from dotenv import load_dotenv
 
-# ضبط المسار ليتمكن بايثون من رؤية المجلدات الفرعية في Vercel
+# 1. ضبط المسار (لضمان رؤية المجلدات الفرعية)
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# الاستيرادات الخاصة بك
-from config import Config
-from models import db, Category, User
 from routes import register_blueprints
+from config import Config
+from models import db
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    # إعدادات المجلدات لـ Vercel (نظام الملفات هناك للقراءة فقط)
-    if not os.environ.get("VERCEL"):
-        Path(app.config["UPLOAD_FOLDER"]).mkdir(parents=True, exist_ok=True)
-        Path(app.config["TTS_FOLDER"]).mkdir(parents=True, exist_ok=True)
-
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    # تهيئة الإضافات
     db.init_app(app)
-    JWTManager(app)
-    
-    # تسجيل الـ Blueprints
     register_blueprints(app)
-    @app.route("/debug/routes")
-def debug_routes():
-    # هذا سيعرض لك قائمة بجميع المسارات التي سجلها تطبيقك
-    return {"routes": [str(rule) for rule in app.url_map.iter_rules()]}
-
+    
     @app.route("/")
     def home():
         return {"message": "AI Engine is running"}
-
-    @app.route("/api/health")
-    def health():
-        return {"status": "ok", "service": "CMS-AI"}
-
+        
     return app
 
-# تعريف app للـ Vercel Runtime
+# 2. هذا السطر هو ما يبحث عنه Vercel
+# يجب أن يكون المتغير المسمى "app" موجوداً في المستوى الأعلى للملف
 app = create_app()
 
-if __name__ == "__ai_bp__":
+if __name__ == "__main__":
     app.run()
