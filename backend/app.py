@@ -43,5 +43,5 @@ def create_app():
 # تعريف app للـ Vercel Runtime
 app = create_app()
 
-if __name__ == "__main__":
+if __name__ == "__ai_bp__":
     app.run()
