@@ -1,4 +1,4 @@
-from routes.ai import ai_bp
+from .ai import ai_bp
 from routes.analytics import analytics_bp
 from routes.chat import chat_bp
 from routes.articles import articles_bp
