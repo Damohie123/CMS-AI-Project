@@ -1,18 +1,18 @@
 from flask import Blueprint, current_app, jsonify, request, send_from_directory
 from flask_jwt_extended import jwt_required
-
 import ai_engine
 from models import Article
 from services import tts_service
 
-
-from flask import Blueprint
-
+# إنشاء الـ Blueprint
 ai_bp = Blueprint('ai', __name__)
 
-@ai_bp.route('/', methods=['GET']) # هذا المسار سيصبح /api/ai/
+# مسار الصفحة الرئيسية للـ Blueprint
+@ai_bp.route('/', methods=['GET'])
 def index():
     return {"message": "AI Engine is running"}
+
+@ai_bp.route('/generate', methods=['POST'])
 @jwt_required()
 def generate():
     data = request.get_json() or {}
@@ -26,9 +26,6 @@ def generate():
             length=data.get("length", "medium"),
         )
     )
-@ai_bp.route('/')
-def home():
-    return "مرحباً بك في موقع CMS-AI"
 
 @ai_bp.route("/summarize", methods=["POST"])
 @jwt_required()
@@ -39,7 +36,6 @@ def summarize():
         return jsonify({"error": "النص مطلوب"}), 400
     return jsonify(ai_engine.summarize_text(text))
 
-
 @ai_bp.route("/titles", methods=["POST"])
 @jwt_required()
 def titles():
@@ -48,7 +44,6 @@ def titles():
     if not text:
         return jsonify({"error": "أدخل نصاً أو موضوعاً"}), 400
     return jsonify(ai_engine.suggest_titles(text, count=data.get("count", 5)))
-
 
 @ai_bp.route("/seo", methods=["POST"])
 @jwt_required()
@@ -60,7 +55,6 @@ def seo():
         return jsonify({"error": "المحتوى مطلوب"}), 400
     return jsonify(ai_engine.seo_suggestions(title, content))
 
-
 @ai_bp.route("/keywords", methods=["POST"])
 @jwt_required()
 def keywords():
@@ -69,7 +63,6 @@ def keywords():
     if not text.strip():
         return jsonify({"error": "النص مطلوب"}), 400
     return jsonify(ai_engine.extract_keywords(text, limit=data.get("limit", 15)))
-
 
 @ai_bp.route("/grammar", methods=["POST"])
 @jwt_required()
@@ -80,7 +73,6 @@ def grammar():
         return jsonify({"error": "النص مطلوب"}), 400
     return jsonify(ai_engine.grammar_check(text))
 
-
 @ai_bp.route("/arabic-package", methods=["POST"])
 @jwt_required()
 def arabic_package():
@@ -90,11 +82,9 @@ def arabic_package():
         return jsonify({"error": "الموضوع مطلوب"}), 400
     return jsonify(ai_engine.arabic_content_package(topic))
 
-
 @ai_bp.route("/tools", methods=["GET"])
 @jwt_required()
 def list_tools():
-    """AI capabilities exposed by the backend."""
     return jsonify({
         "tools": [
             {"id": "generate", "name": "توليد مقال", "endpoint": "POST /api/ai/generate"},
@@ -105,11 +95,9 @@ def list_tools():
             {"id": "grammar", "name": "تصحيح لغوي", "endpoint": "POST /api/ai/grammar"},
             {"id": "arabic-package", "name": "حزمة محتوى عربي", "endpoint": "POST /api/ai/arabic-package"},
             {"id": "tts", "name": "نص إلى صوت", "endpoint": "POST /api/ai/tts"},
-            {"id": "chat", "name": "مساعد ذكي", "endpoint": "POST /api/chat/sessions/{id}/messages"},
         ],
         "openai_configured": bool(current_app.config.get("OPENAI_API_KEY")),
     })
-
 
 @ai_bp.route("/tts", methods=["POST"])
 @jwt_required()
@@ -131,7 +119,6 @@ def text_to_speech():
     except RuntimeError as e:
         return jsonify({"error": str(e)}), 503
 
-
 @ai_bp.route("/tts/audio/<filename>", methods=["GET"])
 @jwt_required(optional=True)
 def serve_tts_audio(filename):
@@ -139,7 +126,6 @@ def serve_tts_audio(filename):
     if safe != filename or not filename.endswith(".mp3"):
         return jsonify({"error": "ملف غير صالح"}), 400
     return send_from_directory(current_app.config["TTS_FOLDER"], filename)
-
 
 @ai_bp.route("/duplicate-check", methods=["POST"])
 @jwt_required()
@@ -154,7 +140,3 @@ def duplicate_check():
         q = q.filter(Article.id != article_id)
     snippets = [a.content for a in q.limit(50).all()]
     return jsonify(ai_engine.detect_duplicate(content, snippets))
-
-@ai_bp.route('/check')
-def check():
-    return {"status": "Blueprint is working correctly!"}
