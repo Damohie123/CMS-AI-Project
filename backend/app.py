@@ -29,6 +29,10 @@ def create_app():
     
     # تسجيل الـ Blueprints
     register_blueprints(app)
+    @app.route("/debug/routes")
+def debug_routes():
+    # هذا سيعرض لك قائمة بجميع المسارات التي سجلها تطبيقك
+    return {"routes": [str(rule) for rule in app.url_map.iter_rules()]}
 
     @app.route("/")
     def home():
